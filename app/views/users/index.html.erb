@@ -1,5 +1,12 @@
 <h2>スケジュール一覧</h2>
 
+<% if flash.notice %>
+    <p class="notice"><%= flash.notice %></p>
+<% end %>
+
+<% if flash.alert %>
+    <p class="alert"><%= flash.alert %></p>
+<% end %>
 
 <table>
     <thead>
@@ -22,11 +29,26 @@
                 <td><%= user.title %></td>
                 <td><%= user.start_day %></td>
                 <td><%= user.end_day %></td>
-                <td><%= user.all_day %></td>
-                <td><%= user.updated_at %></td>
+                <td>
+                    <% if user.all_day == true %>◯
+                    <% end %>
+                        <%# <% if user.all_day == true %>
+                            <%# <td>◯</td> %>
+                        <%# <% else user.all_day == false %>
+                            <%# <td> </td> %>
+                        <%#  <% end %> 
+                </td>
+                <td><%= user.updated_at.to_s(:datetime_jp) %></td>
+                <td><%= link_to "確認", user %></td>
+                <td><%= link_to "編集", [:edit, user] %></td>
+                <td><%= link_to "削除", user, method: :delete, data: {confirm: "本当に削除しますか?"} %></td>
             </tr>
         <% end %>
     </tbody>
 </table>
 
 <p><%= link_to "スケジュール新規登録", :new_user %></p>
+
+<% content_for :footer do %>
+    スケジュールの合計：<%= User.count %>
+<% end %>

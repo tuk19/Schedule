@@ -18,7 +18,9 @@
       <%= yield %>
     </div>
     <footer>
-      <h1 class="font_white">現在の日時：</h1>
+      <h1 class="font_white">現在の日時：<%= Date.current.strftime("%Y年%m月%d日") %>
+          <%= yield :footer %></h1>
+
     </footer>
   </body>
 </html>
